@@ -1,4 +1,4 @@
-# WorkflowOS
+WorkflowOS
 
 Open Source Automation Engine for Developers
 
@@ -6,7 +6,7 @@ WorkflowOS is a distributed automation platform that allows developers to build 
 
 ---
 
-## Features
+Features
 
 - Workflow DAG Engine
 - Plugin System
@@ -19,13 +19,29 @@ WorkflowOS is a distributed automation platform that allows developers to build 
 
 ---
 
-## Architecture
+Screenshots
+
+Dashboard
+
+"Dashboard" (screenshots/dashboard.png)
+
+Visual Workflow Builder
+
+"Builder" (screenshots/builder.png)
+
+API Docs
+
+"API" (screenshots/api.png)
+
+---
+
+Architecture
 
 Client → API → Workflow Engine → Job Queue → Worker → Plugin
 
 ---
 
-## Installation
+Installation
 
 Clone repository
 
@@ -43,26 +59,26 @@ http://localhost:8000/docs
 
 ---
 
-## Example Workflow
+Example Workflow
 
 Webhook trigger executes plugins:
 
-send_email  
+send_email
 save_db
 
 ---
 
-## API Endpoints
+API Endpoints
 
-GET /workflows  
-POST /workflows  
-POST /webhook/{workflow_id}  
-GET /runs  
-GET /metrics  
+GET /workflows
+POST /workflows
+POST /webhook/{workflow_id}
+GET /runs
+GET /metrics
 
 ---
 
-## Roadmap
+Roadmap
 
 - Visual workflow editor
 - Plugin marketplace
@@ -72,6 +88,6 @@ GET /metrics
 
 ---
 
-## License
+License
 
 MIT License
