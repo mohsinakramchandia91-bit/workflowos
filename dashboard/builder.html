@@ -1,0 +1,216 @@
+<!DOCTYPE html><html><head><title>WorkflowOS Builder</title><style>
+
+body{
+background:#0f172a;
+color:white;
+font-family:Arial;
+margin:0;
+padding:20px;
+}
+
+h1{
+text-align:center;
+}
+
+.toolbar{
+display:flex;
+gap:10px;
+margin-bottom:20px;
+}
+
+button{
+background:#22c55e;
+border:none;
+padding:10px 15px;
+border-radius:6px;
+cursor:pointer;
+}
+
+button:hover{
+background:#4ade80;
+}
+
+#canvas{
+background:#1e293b;
+height:500px;
+border-radius:10px;
+padding:20px;
+position:relative;
+overflow:hidden;
+}
+
+.node{
+
+position:absolute;
+background:#334155;
+padding:10px;
+border-radius:6px;
+cursor:move;
+box-shadow:0 0 10px rgba(0,0,0,0.4);
+
+}
+
+.node:hover{
+box-shadow:0 0 15px #22c55e;
+}
+
+</style></head><body><h1>WorkflowOS Visual Builder</h1><div class="toolbar"><button onclick="addNode('send_email')">Email Node</button>
+<button onclick="addNode('save_db')">DB Node</button>
+<button onclick="saveWorkflow()">Save Workflow</button>
+
+</div><div id="canvas"></div><script>
+
+let nodes=[]
+let nodeId=1
+
+function addNode(plugin){
+
+let node={
+id:"step"+nodeId,
+plugin:plugin,
+x:50,
+y:50
+}
+
+nodes.push(node)
+
+renderNode(node)
+
+nodeId++
+
+}
+
+function renderNode(node){
+
+let div=document.createElement("div")
+
+div.className="node"
+div.innerText=node.plugin
+
+div.style.left=node.x+"px"
+div.style.top=node.y+"px"
+
+dragElement(div,node)
+
+document.getElementById("canvas").appendChild(div)
+
+}
+
+function dragElement(el,node){
+
+let offsetX=0
+let offsetY=0
+
+el.onmousedown=function(e){
+
+offsetX=e.clientX-el.offsetLeft
+offsetY=e.clientY-el.offsetTop
+
+document.onmousemove=function(e){
+
+el.style.left=(e.clientX-offsetX)+"px"
+el.style.top=(e.clientY-offsetY)+"px"
+
+node.x=e.clientX-offsetX
+node.y=e.clientY-offsetY
+
+}
+
+document.onmouseup=function(){
+
+document.onmousemove=null
+}
+
+}
+
+}
+
+async function saveWorkflow(){
+
+let workflow={nodes:nodes}
+
+let res=await fetch("http://127.0.0.1:8000/workflows",{
+
+method:"POST",
+headers:{
+'Content-Type':'application/json'
+},
+
+body:JSON.stringify({
+name:"builder workflow",
+definition:workflow
+})
+
+})
+
+let data=await res.json()
+
+alert("Workflow saved with ID "+data.id)
+
+}
+
+</script></body></html>
+
+<script>
+
+let nodes = []
+let edges = []
+
+// SAVE WORKFLOW
+async function saveWorkflow(){
+
+    const workflow = {
+        nodes: nodes,
+        edges: edges
+    }
+
+    const res = await fetch("http://127.0.0.1:8000/workflows",{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body: JSON.stringify({
+            name:"Builder Workflow",
+            definition: workflow
+        })
+    })
+
+    const data = await res.json()
+
+    alert("Workflow Saved ID: " + data.id)
+}
+
+
+// LOAD WORKFLOWS
+async function loadWorkflows(){
+
+    const res = await fetch("http://127.0.0.1:8000/workflows")
+
+    const data = await res.json()
+
+    console.log("Workflows:", data)
+
+}
+
+
+// RUN WORKFLOW
+async function runWorkflow(id){
+
+    const res = await fetch(
+        "http://127.0.0.1:8000/webhook/" + id,
+        {
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify({})
+        }
+    )
+
+    const data = await res.json()
+
+    console.log("Run Result:", data)
+
+}
+
+</script>
