@@ -1,0 +1,5 @@
+{
+  "name": "AI Task Plugin",
+  "version": "1.0",
+  "description": "Processes text input using AI and returns structured output."
+}
