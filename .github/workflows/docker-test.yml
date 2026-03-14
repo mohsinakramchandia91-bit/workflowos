@@ -26,12 +26,18 @@ jobs:
 
     - name: Run container
       run: |
-        docker run -d -p 8000:8000 workflowos
+        docker run -d -p 8000:8000 --name workflowos-test workflowos
 
-    - name: Wait for API
+    - name: Wait for API to start
       run: |
-        sleep 10
-
-    - name: Test health endpoint
-      run: |
-        curl http://localhost:8000/health
+        for i in {1..20}; do
+          if curl -s http://localhost:8000/health; then
+            echo "API is up"
+            exit 0
+          fi
+          echo "Waiting for API..."
+          sleep 3
+        done
+        echo "API failed to start"
+        docker logs workflowos-test
+        exit 1
