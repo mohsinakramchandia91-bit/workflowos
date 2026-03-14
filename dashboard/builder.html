@@ -1,217 +1,229 @@
-<!DOCTYPE html><html><head><title>WorkflowOS Builder</title><style>
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>WorkflowOS Builder</title>
+
+<style>
 
 body{
-background:#0f172a;
-color:white;
-font-family:Arial;
 margin:0;
-padding:20px;
+font-family:Arial;
+background:linear-gradient(135deg,#020617,#0f172a);
+color:white;
+overflow:hidden;
 }
 
-h1{
-text-align:center;
-}
+/* TOP BAR */
 
-.toolbar{
+.topbar{
 display:flex;
-gap:10px;
-margin-bottom:20px;
+justify-content:space-between;
+padding:20px 40px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
 }
 
 button{
-background:#22c55e;
+padding:10px 20px;
 border:none;
-padding:10px 15px;
-border-radius:6px;
-cursor:pointer;
-}
-
-button:hover{
-background:#4ade80;
-}
-
-#canvas{
-background:#1e293b;
-height:500px;
 border-radius:10px;
-padding:20px;
-position:relative;
-overflow:hidden;
+cursor:pointer;
+font-size:16px;
 }
+
+.save{
+background:#22c55e;
+box-shadow:0 0 10px #22c55e;
+}
+
+.run{
+background:#3b82f6;
+color:white;
+box-shadow:0 0 10px #3b82f6;
+}
+
+/* WORKSPACE */
+
+.workspace{
+position:relative;
+height:90vh;
+}
+
+/* NODE STYLE */
 
 .node{
 
 position:absolute;
-background:#334155;
-padding:10px;
-border-radius:6px;
+padding:15px 20px;
+border-radius:12px;
+
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(8px);
+
 cursor:move;
-box-shadow:0 0 10px rgba(0,0,0,0.4);
+
+box-shadow:0 0 10px rgba(0,0,0,0.5);
+
+transition:0.2s;
 
 }
 
 .node:hover{
+
+transform:scale(1.08);
 box-shadow:0 0 15px #22c55e;
+
 }
 
-</style></head><body><h1>WorkflowOS Visual Builder</h1><div class="toolbar"><button onclick="addNode('send_email')">Email Node</button>
-<button onclick="addNode('save_db')">DB Node</button>
-<button onclick="saveWorkflow()">Save Workflow</button>
-<button onclick="runWorkflow(1)">Run Workflow</button>
+</style>
 
-</div><div id="canvas"></div><script>
+</head>
+
+<body>
+
+
+<div class="topbar">
+
+<div>
+
+<button onclick="addNode('send_email')">Email Node</button>
+
+<button onclick="addNode('save_db')">DB Node</button>
+
+</div>
+
+<div>
+
+<button class="save" onclick="saveWorkflow()">Save</button>
+
+<button class="run" onclick="runWorkflow()">Run</button>
+
+</div>
+
+</div>
+
+
+<div class="workspace" id="workspace"></div>
+
+
+<script>
 
 let nodes=[]
-let nodeId=1
+let nodeCount=0
 
-function addNode(plugin){
+
+function addNode(type){
+
+nodeCount++
 
 let node={
-id:"step"+nodeId,
-plugin:plugin,
-x:50,
-y:50
+
+id:nodeCount,
+type:type,
+x:100,
+y:100
+
 }
 
 nodes.push(node)
 
-renderNode(node)
-
-nodeId++
+renderNodes()
 
 }
 
-function renderNode(node){
 
-let div=document.createElement("div")
+function renderNodes(){
+
+const workspace=document.getElementById("workspace")
+
+workspace.innerHTML=""
+
+nodes.forEach(node=>{
+
+const div=document.createElement("div")
 
 div.className="node"
-div.innerText=node.plugin
 
 div.style.left=node.x+"px"
+
 div.style.top=node.y+"px"
 
-dragElement(div,node)
+div.innerText=node.type
 
-document.getElementById("canvas").appendChild(div)
+workspace.appendChild(div)
 
-}
-
-function dragElement(el,node){
-
-let offsetX=0
-let offsetY=0
-
-el.onmousedown=function(e){
-
-offsetX=e.clientX-el.offsetLeft
-offsetY=e.clientY-el.offsetTop
-
-document.onmousemove=function(e){
-
-el.style.left=(e.clientX-offsetX)+"px"
-el.style.top=(e.clientY-offsetY)+"px"
-
-node.x=e.clientX-offsetX
-node.y=e.clientY-offsetY
+})
 
 }
 
-document.onmouseup=function(){
-
-document.onmousemove=null
-}
-
-}
-
-}
 
 async function saveWorkflow(){
 
-let workflow={nodes:nodes}
+const workflow={nodes:nodes}
 
-let res=await fetch("http://127.0.0.1:8000/workflows",{
+const res=await fetch("http://127.0.0.1:8000/workflows",{
 
 method:"POST",
+
 headers:{
-'Content-Type':'application/json'
+
+"Content-Type":"application/json"
+
 },
 
 body:JSON.stringify({
+
 name:"builder workflow",
+
 definition:workflow
-})
 
 })
 
-let data=await res.json()
+})
 
-alert("Workflow saved with ID "+data.id)
+const data=await res.json()
 
-}
-
-</script></body></html>
-
-<script>
-
-let nodes = []
-let edges = []
-
-// SAVE WORKFLOW
-async function saveWorkflow(){
-
-    const workflow = {
-        nodes: nodes,
-        edges: edges
-    }
-
-    const res = await fetch("http://127.0.0.1:8000/workflows",{
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json"
-        },
-        body: JSON.stringify({
-            name:"Builder Workflow",
-            definition: workflow
-        })
-    })
-
-    const data = await res.json()
-
-    alert("Workflow Saved ID: " + data.id)
-}
-
-
-// LOAD WORKFLOWS
-async function loadWorkflows(){
-
-    const res = await fetch("http://127.0.0.1:8000/workflows")
-
-    const data = await res.json()
-
-    console.log("Workflows:", data)
+alert("Workflow Saved ID: "+data.id)
 
 }
 
 
-// RUN WORKFLOW
-async function runWorkflow(id){
+async function runWorkflow(){
 
-    const res = await fetch(
-        "http://127.0.0.1:8000/webhook/" + id,
-        {
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body: JSON.stringify({})
-        }
-    )
+let id=prompt("Enter Workflow ID")
 
-    const data = await res.json()
+const res=await fetch(
 
-    console.log("Run Result:", data)
+"http://127.0.0.1:8000/webhook/"+id,
+
+{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify({})
+
+}
+
+)
+
+const data=await res.json()
+
+console.log(data)
+
+alert("Workflow executed")
 
 }
 
 </script>
+
+</body>
+
+</html>
