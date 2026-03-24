@@ -3,6 +3,12 @@
 ⚡ AI-Native Automation Platform • n8n Alternative • System-Level Architecture
 
 <p align="center">
+  <img src="https://komarev.com/ghpvc/?username=muhammadmohsindeveloper-cloud&label=Profile%20Views&color=0e75b6&style=for-the-badge"/>
+  <img src="https://img.shields.io/github/stars/muhammadmohsindeveloper-cloud/autonomous-workflow-engine?style=for-the-badge"/>
+  <img src="https://img.shields.io/github/forks/muhammadmohsindeveloper-cloud/autonomous-workflow-engine?style=for-the-badge"/>
+  <img src="https://img.shields.io/github/issues/muhammadmohsindeveloper-cloud/autonomous-workflow-engine?style=for-the-badge"/>
+  <img src="https://img.shields.io/github/license/muhammadmohsindeveloper-cloud/autonomous-workflow-engine?style=for-the-badge"/>
+</p><p align="center">
   <img src="https://img.shields.io/badge/AI-Native-black?style=for-the-badge"/>
   <img src="https://img.shields.io/badge/Automation-Engine-blue?style=for-the-badge"/>
   <img src="https://img.shields.io/badge/System-Design-red?style=for-the-badge"/>
@@ -15,7 +21,7 @@
 
 🧠 What is WorkflowOS?
 
-Autonomous Workflow Engine (WorkflowOS) is a next-generation, AI-native workflow automation platform designed to compete with tools like n8n — but built with a system-first and scalable architecture mindset.
+Autonomous Workflow Engine (WorkflowOS) is a next-generation, AI-native workflow automation platform designed to compete with tools like n8n — built with a system-first and scalable architecture mindset.
 
 It enables developers to:
 
@@ -27,6 +33,21 @@ It enables developers to:
 «💡 This is not just automation — this is intelligent orchestration infrastructure»
 
 ---
+
+🏆 GitHub Analytics
+
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=muhammadmohsindeveloper-cloud&show_icons=true&theme=tokyonight"/>
+  <img src="https://streak-stats.demolab.com/?user=muhammadmohsindeveloper-cloud&theme=tokyonight"/>
+</p><p align="center">
+  <img src="https://github-profile-trophy.vercel.app/?username=muhammadmohsindeveloper-cloud&theme=tokyonight&no-frame=true&row=1"/>
+</p>---
+
+🛠️ Tech Stack
+
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=python,fastapi,docker,github"/>
+</p>---
 
 🔥 Core Capabilities
 
@@ -82,10 +103,10 @@ Output + Logs + Metrics
 
 workflowos/
 │
-├── api/           # FastAPI routes (webhooks, plugins, health)
+├── api/           # FastAPI routes
 ├── engine/        # Core workflow engine
 ├── plugins/       # Plugin system
-├── core/          # Shared utilities & logic
+├── core/          # Utilities & logic
 ├── app/           # Orchestration layer
 ├── dashboard/     # UI (future)
 ├── templates/     # Prebuilt workflows
@@ -136,7 +157,7 @@ Endpoint| Description
 "/webhook/{workflow_id}"| Trigger workflow
 "/plugins"| List plugins
 "/health"| System health
-"/metrics"| Monitoring data
+"/metrics"| Monitoring
 
 ---
 
@@ -156,38 +177,39 @@ Phase 1 — Core System ✅
 - Workflow engine
 - Webhook triggers
 
-Phase 2 — Stability & Scale
+Phase 2 — Stability
 
 - DAG execution
-- Retry + error handling
-- Logging improvements
+- Retry handling
+- Logging upgrade
 
-Phase 3 — Intelligence Layer
+Phase 3 — Intelligence
 
 - AI nodes (LLMs)
-- Chat-based workflow builder
+- Chat builder
 - Visual dashboard
 
-Phase 4 — Platformization
+Phase 4 — Platform
 
-- Plugin marketplace
+- Marketplace
 - SaaS deployment
-- API key management
+- API keys
 
 ---
 
 💣 Why This Project Matters
 
 This project represents a shift from:
+
 ❌ Basic automation tools
-➡️ To
+➡️
 ✅ Intelligent, scalable workflow systems
 
-It focuses on:
+Focus areas:
 
-- System design thinking
-- Real-world automation use cases
-- AI-powered orchestration
+- System design
+- Real-world automation
+- AI orchestration
 
 ---
 
@@ -200,24 +222,20 @@ AI Systems Engineer • Automation Architect
 
 ---
 
-⭐ Support & Contribution
-
-If this project adds value:
+⭐ Support
 
 ⭐ Star the repo
 🍴 Fork it
-🚀 Build on top of it
+🚀 Build on top
 
 ---
 
 🏆 Vision
 
-To build a production-ready AI automation platform that is:
-
-⚡ Faster than traditional tools
-🧠 Smarter with AI
-🔧 More flexible & modular
-🌍 Ready for real-world deployment
+⚡ Faster
+🧠 Smarter
+🔧 More Flexible
+🌍 Production Ready
 
 ---
 
