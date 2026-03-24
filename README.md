@@ -1,3 +1,7 @@
+"Banner" (./screenshots/banner.png)
+
+<p align="center"><b>⚡ AI-Powered Workflow Automation Engine • Built for Scale</b></p>---
+
 🚀 Autonomous Workflow Engine (WorkflowOS)
 
 ⚡ AI-Native Automation Platform • n8n Alternative • System-Level Architecture
